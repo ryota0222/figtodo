@@ -4,7 +4,7 @@ import uuid from "../node_modules/uuid-random/index";
 
 import { TaskItem, UserItem } from "../ui-src/type";
 
-figma.showUI(__html__, { themeColors: true, width: 1200, height: 600 });
+figma.showUI(__html__, { themeColors: true, width: 1000, height: 600 });
 
 async function getFileId(): Promise<string> {
   // ファイルのルートノードからIDを取得または生成
