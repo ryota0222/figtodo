@@ -1,6 +1,10 @@
 import { useMemo, useState } from "react";
 
-import "./App.css";
+import "./styles/core.css";
+import "./styles/icon.css";
+import "./styles/root.css";
+import "./styles/task.css";
+import "./styles/user.css";
 import { useFetchTodo } from "./hooks/useFetchTodo";
 import { NavPanel } from "./components/NavPanel";
 import { MainPanel } from "./components/MainPanel";

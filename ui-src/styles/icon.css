@@ -1,0 +1,55 @@
+.figma-light .active_list_screen {
+  background-color: var(--custom-red-100);
+}
+
+.figma-dark .active_list_screen {
+  background-color: var(--custom-red-800);
+}
+
+.figma-light .active_list_screen svg path {
+  fill: var(--custom-red-600);
+}
+
+.figma-dark .active_list_screen svg path {
+  fill: var(--custom-red-100);
+}
+
+.figma-light .user__delete_button svg path {
+  fill: black;
+}
+
+.figma-dark .user__delete_button svg path {
+  fill: white;
+}
+
+.figma-light .active_user_screen {
+  background-color: var(--custom-green-100);
+}
+
+.figma-dark .active_user_screen {
+  background-color: var(--custom-green-800);
+}
+
+.figma-light .active_user_screen svg path {
+  fill: var(--custom-green-600);
+}
+
+.figma-dark .active_user_screen svg path {
+  fill: var(--custom-green-100);
+}
+
+.figma-light .active_completed_screen {
+  background-color: var(--custom-blue-100);
+}
+
+.figma-dark .active_completed_screen {
+  background-color: var(--custom-blue-800);
+}
+
+.figma-light .active_completed_screen svg path {
+  fill: var(--custom-blue-600);
+}
+
+.figma-dark .active_completed_screen svg path {
+  fill: var(--custom-blue-100);
+}

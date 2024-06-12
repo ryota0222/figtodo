@@ -1,0 +1,52 @@
+.container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 18px;
+  text-align: left;
+  margin: 0;
+}
+
+.nav_panel {
+  border-right: solid 1px var(--figma-color-bg-disabled);
+}
+
+.nav_link_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav_link_item svg path {
+  fill: var(--figma-color-icon);
+}
+
+.main_panel {
+  flex: 1;
+}
+
+.empty_state_text {
+  color: var(--custom-gray-400);
+  padding: 2rem 0;
+}
+
+.add_button_wrapper {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.add_button {
+  display: flex;
+  gap: 8px;
+  color: white;
+  background-color: var(--figma-color-bg-brand);
+  border-color: var(--figma-color-bg-brand-hover);
+}
+
+.add_button__text {
+  font-size: 14px;
+}

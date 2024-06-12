@@ -1,0 +1,37 @@
+.user_container {
+  margin-top: 1rem;
+}
+
+.user_wrapper {
+  position: relative;
+  margin: 12px 0;
+}
+
+.user__input {
+  background-color: var(--figma-color-bg-secondary);
+  outline: none;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 36px;
+  color: var(--figma-color-text);
+  width: 100%;
+  border: none;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  appearance: none;
+}
+
+.user__input:focus {
+  outline: solid 2px var(--figma-color-bg-brand);
+}
+
+.user__item {
+  position: absolute;
+  top: 0%;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

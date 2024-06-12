@@ -1,0 +1,170 @@
+.todo_container {
+  margin-top: 0.5rem;
+}
+
+.todo_announce {
+  color: var(--figma-color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.todo_th {
+  width: 100%;
+  display: flex;
+  height: 32px;
+}
+
+.todo_th__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo_th__check {
+  width: 32px;
+}
+
+.todo_th__text {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.todo_th__date {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+}
+
+.todo_th__user {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+}
+
+.todo_th__delete {
+  width: 40px;
+}
+
+.todo_th__text svg path {
+  fill: var(--custom-gray-400);
+}
+
+.todo_th__date svg path {
+  fill: var(--custom-gray-400);
+}
+
+.todo_th__user svg path {
+  fill: var(--custom-gray-400);
+}
+
+.todo_tr {
+  width: 100%;
+  display: flex;
+  padding: 12px 0;
+}
+
+.completed_todo_tr {
+  border-bottom: solid 1px var(--figma-color-bg-disabled);
+}
+
+.todo_td__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo_td__check {
+  width: 32px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.todo_td__text {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  word-break: break-all;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: normal;
+  padding-right: 8px;
+}
+
+.todo_td__text .todo_td_text_wrapper {
+  width: 100%;
+  height: 100%;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.todo_td__text .todo_td_text_wrapper:hover {
+  cursor: text;
+}
+
+.todo_td__text .todo_td_text_wrapper:focus {
+  outline: none;
+}
+
+.todo_td__date {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+  padding-right: 16px;
+}
+
+.todo_td__date.completed {
+  padding-right: 0px;
+}
+
+.todo_td__user {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+  padding-right: 16px;
+}
+
+.todo_td__user.completed {
+  padding-right: 0px;
+}
+
+.todo_td__delete {
+  width: 40px;
+}
+
+.todo_td__delete:hover {
+  background-color: var(--figma-color-bg-hover);
+}
+
+.todo_td__delete svg path {
+  fill: var(--figma-color-bg-inverse);
+}
+
+.todo_input {
+  background-color: var(--figma-color-bg-secondary);
+  outline: none;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 36px;
+  color: var(--figma-color-text);
+  width: 100%;
+  border: none;
+  text-align: left;
+  padding: 0.5rem;
+  appearance: none;
+}
+
+.completed_count {
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  background: #006fee;
+  border-radius: 4px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
