@@ -1,44 +1,45 @@
-import { useRef } from "react";
-import logoPng from "./logo.png";
-import logoSvg from "./logo.svg?raw";
-import Logo from "./Logo";
+import { useMemo, useState } from "react";
+
 import "./App.css";
+import { useFetchTodo } from "./hooks/useFetchTodo";
+import { NavPanel } from "./components/NavPanel";
+import { MainPanel } from "./components/MainPanel";
 
 function App() {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [activeScreen, setActiveScreen] = useState<
+    "list" | "user" | "completed"
+  >("list");
+  const { todos } = useFetchTodo();
 
-  const onCreate = () => {
-    const count = Number(inputRef.current?.value || 0);
-    parent.postMessage(
-      { pluginMessage: { type: "create-rectangles", count } },
-      "*"
-    );
-  };
+  const pendingTodos = useMemo(
+    () => todos.filter((todo) => !todo.completedAt?.length),
+    [todos]
+  );
 
-  const onCancel = () => {
-    parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-  };
+  const completedTodos = useMemo(() => {
+    // completedAtの順に並び変え
+    return todos
+      .filter((todo) => todo.completedAt?.length)
+      .sort((a, b) => {
+        if (a.completedAt && b.completedAt) {
+          return a.completedAt > b.completedAt ? -1 : 1;
+        }
+        return 0;
+      });
+  }, [todos]);
 
   return (
     <main>
-      <header>
-        <img src={logoPng} />
-        &nbsp;
-        <img src={`data:image/svg+xml;utf8,${logoSvg}`} />
-        &nbsp;
-        <Logo />
-        <h2>Rectangle Creator</h2>
-      </header>
-      <section>
-        <input id="input" type="number" min="0" ref={inputRef} />
-        <label htmlFor="input">Rectangle Count</label>
-      </section>
-      <footer>
-        <button className="brand" onClick={onCreate}>
-          Create
-        </button>
-        <button onClick={onCancel}>Cancel</button>
-      </footer>
+      <NavPanel
+        activeScreen={activeScreen}
+        setActiveScreen={setActiveScreen}
+        completeCount={completedTodos.length}
+      />
+      <MainPanel
+        activeScreen={activeScreen}
+        pendingTodos={pendingTodos}
+        completedTodos={completedTodos}
+      />
     </main>
   );
 }

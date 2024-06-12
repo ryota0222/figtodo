@@ -1,4 +1,14 @@
 :root {
+  --custom-red-100: #fdd0df;
+  --custom-red-600: #c20e4d;
+  --custom-red-800: #610726;
+  --custom-green-100: #d1f4e0;
+  --custom-green-600: #12a150;
+  --custom-green-800: #095028;
+  --custom-blue-100: #cce3fd;
+  --custom-blue-600: #005bc4;
+  --custom-blue-800: #002e62;
+  --custom-gray-400: #a1a1aa;
   --color-bg: var(--figma-color-bg);
   --color-bg-hover: var(--figma-color-bg-hover);
   --color-bg-active: var(--figma-color-bg-pressed);
@@ -18,6 +28,7 @@ html,
 body,
 main {
   height: 100%;
+  width: 100%;
 }
 
 body,
@@ -29,10 +40,15 @@ button {
   text-align: center;
 }
 
+#root {
+  width: 100%;
+}
+
 body {
   background: var(--color-bg);
   color: var(--color-text);
   margin: 0;
+  display: flex;
 }
 
 button {
@@ -63,25 +79,37 @@ button.brand {
 }
 
 input {
-  background: 1px solid var(--color-bg);
-  border: 1px solid var(--color-border);
-  color: 1px solid var(--color-text);
   padding: 0.5rem;
 }
 
-input:focus-visible {
-  border-color: var(--color-border-focus);
-  outline-color: var(--color-border-focus);
+input[type="date"] {
+  position: relative;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* input[type="date"]::after {
+  position: absolute;
+  content: "📅";
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: all;
+} */
+
 svg {
-  stroke: var(--color-icon, rgba(0, 0, 0, 0.9));
+  stroke: var(--color-icon, var(--figma-color-icon));
 }
 
 main {
-  align-items: center;
   display: flex;
-  flex-direction: column;
   justify-content: center;
 }
 
@@ -102,4 +130,339 @@ footer > * + * {
 img {
   height: auto;
   width: 2rem;
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.cursor-text:hover {
+  cursor: text;
+}
+
+.link {
+  color: var(--figma-color-bg-brand);
+  text-decoration: underline;
+}
+
+.link:hover {
+  text-decoration-color: var(--figma-color-bg-brand-hover);
+}
+
+.container {
+  padding: 1rem;
+}
+
+.title {
+  font-size: 18px;
+  text-align: left;
+  margin: 0;
+}
+
+.nav_panel {
+  border-right: solid 1px var(--figma-color-bg-disabled);
+}
+
+.nav_link_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav_link_item svg path {
+  fill: var(--figma-color-icon);
+}
+
+.main_panel {
+  flex: 1;
+}
+
+.empty_state_text {
+  color: var(--custom-gray-400);
+  padding: 2rem 0;
+}
+
+.add_button_wrapper {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.add_button {
+  display: flex;
+  gap: 8px;
+  color: white;
+  background-color: var(--figma-color-bg-brand);
+  border-color: var(--figma-color-bg-brand-hover);
+}
+
+.add_button__text {
+  font-size: 14px;
+}
+
+.todo_container {
+  margin-top: 0.5rem;
+}
+
+.todo_announce {
+  color: var(--figma-color-text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.todo_th {
+  width: 100%;
+  display: flex;
+  height: 32px;
+}
+
+.todo_th__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo_th__check {
+  width: 32px;
+}
+
+.todo_th__text {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.todo_th__date {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+}
+
+.todo_th__user {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+}
+
+.todo_th__delete {
+  width: 40px;
+}
+
+.todo_th__text svg path {
+  fill: var(--custom-gray-400);
+}
+
+.todo_th__date svg path {
+  fill: var(--custom-gray-400);
+}
+
+.todo_th__user svg path {
+  fill: var(--custom-gray-400);
+}
+
+.todo_tr {
+  width: 100%;
+  display: flex;
+  padding: 12px 0;
+}
+
+.completed_todo_tr {
+  border-bottom: solid 1px var(--figma-color-bg-disabled);
+}
+
+.todo_td__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo_td__check {
+  width: 32px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.todo_td__text {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  word-break: break-all;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: normal;
+  padding-right: 8px;
+}
+
+.todo_td__text .todo_td_text_wrapper {
+  width: 100%;
+  height: 100%;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.todo_td__text .todo_td_text_wrapper:hover {
+  cursor: text;
+}
+
+.todo_td__text .todo_td_text_wrapper:focus {
+  outline: none;
+}
+
+.todo_td__date {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+  padding-right: 16px;
+}
+
+.todo_td__date.completed {
+  padding-right: 0px;
+}
+
+.todo_td__user {
+  display: flex;
+  justify-content: flex-start;
+  width: 140px;
+  padding-right: 16px;
+}
+
+.todo_td__user.completed {
+  padding-right: 0px;
+}
+
+.todo_td__delete {
+  width: 40px;
+}
+
+.todo_td__delete:hover {
+  background-color: var(--figma-color-bg-hover);
+}
+
+.todo_td__delete svg path {
+  fill: var(--figma-color-bg-inverse);
+}
+
+.todo_input {
+  background-color: var(--figma-color-bg-secondary);
+  outline: none;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 36px;
+  color: var(--figma-color-text);
+  width: 100%;
+  border: none;
+  text-align: left;
+  padding: 0.5rem;
+  appearance: none;
+}
+
+.completed_count {
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  background: #006fee;
+  border-radius: 4px;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
+.user_container {
+  margin-top: 1rem;
+}
+
+.user_wrapper {
+  position: relative;
+  margin: 12px 0;
+}
+
+.user__input {
+  background-color: var(--figma-color-bg-secondary);
+  outline: none;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 36px;
+  color: var(--figma-color-text);
+  width: 100%;
+  border: none;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  appearance: none;
+}
+
+.user__input:focus {
+  outline: solid 2px var(--figma-color-bg-brand);
+}
+
+.user__item {
+  position: absolute;
+  top: 0%;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figma-light .active_list_screen {
+  background-color: var(--custom-red-100);
+}
+
+.figma-dark .active_list_screen {
+  background-color: var(--custom-red-800);
+}
+
+.figma-light .active_list_screen svg path {
+  fill: var(--custom-red-600);
+}
+
+.figma-dark .active_list_screen svg path {
+  fill: var(--custom-red-100);
+}
+
+.figma-light .user__delete_button svg path {
+  fill: black;
+}
+
+.figma-dark .user__delete_button svg path {
+  fill: white;
+}
+
+.figma-light .active_user_screen {
+  background-color: var(--custom-green-100);
+}
+
+.figma-dark .active_user_screen {
+  background-color: var(--custom-green-800);
+}
+
+.figma-light .active_user_screen svg path {
+  fill: var(--custom-green-600);
+}
+
+.figma-dark .active_user_screen svg path {
+  fill: var(--custom-green-100);
+}
+
+.figma-light .active_completed_screen {
+  background-color: var(--custom-blue-100);
+}
+
+.figma-dark .active_completed_screen {
+  background-color: var(--custom-blue-800);
+}
+
+.figma-light .active_completed_screen svg path {
+  fill: var(--custom-blue-600);
+}
+
+.figma-dark .active_completed_screen svg path {
+  fill: var(--custom-blue-100);
 }
