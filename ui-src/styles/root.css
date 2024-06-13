@@ -9,6 +9,14 @@
   --custom-blue-600: #005bc4;
   --custom-blue-800: #002e62;
   --custom-gray-400: #a1a1aa;
+  --custom-bg-dark: #222222;
+  --custom-bg-light: #f4f4f5;
+  --custom-nav-bg-dark: #2c2c2c;
+  --custom-nav-bg-light: #ffffff;
+  --custom-nav-active-dark: #3a3a3a;
+  --custom-nav-active-light: #f4f4f5;
+  --custom-nav-active-hover-dark: #3a3a3a60;
+  --custom-nav-active-hover-light: #f4f4f560;
   --color-bg: var(--figma-color-bg);
   --color-bg-hover: var(--figma-color-bg-hover);
   --color-bg-active: var(--figma-color-bg-pressed);

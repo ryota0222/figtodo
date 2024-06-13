@@ -156,15 +156,3 @@
   padding: 0.5rem;
   appearance: none;
 }
-
-.completed_count {
-  color: white;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 2px 5px;
-  background: #006fee;
-  border-radius: 4px;
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-}

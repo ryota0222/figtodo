@@ -5,6 +5,9 @@ interface Props {
   href: string;
 }
 
+// 省略文字数
+const OMIT_LENGTH = 30;
+
 export const TaskLink: FC<Props> = ({ content, href }) => {
   // hrefのドメインがfigmaで、queryにnode-idがある
   const isFigmaLink = useMemo(() => {
@@ -26,9 +29,15 @@ export const TaskLink: FC<Props> = ({ content, href }) => {
       parent.postMessage({ pluginMessage: { type: "open-url", href } }, "*");
     }
   };
+  const displayContent = useMemo(() => {
+    // 15文字を超える場合は...を付与
+    return content.length > OMIT_LENGTH
+      ? `${content.slice(0, OMIT_LENGTH)}...`
+      : content;
+  }, [content]);
   return (
     <span role="button" className="cursor-pointer link" onClick={handleClick}>
-      {content}
+      {displayContent}
     </span>
   );
 };

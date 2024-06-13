@@ -15,30 +15,37 @@ export const NavPanel = memo<Props>(
   ({ activeScreen, setActiveScreen, completeCount }) => {
     return (
       <div className="nav_panel">
-        <div
-          role="button"
-          onClick={() => setActiveScreen("list")}
-          className={`nav_link_item cursor-pointer ${activeScreen === "list" ? "active_list_screen" : ""}`}
-        >
-          <ListIcon width={20} height={20} color="black" />
+        <p className="nav_panel_title">page</p>
+        <div className="nav_panel_link_wrapper">
+          <div
+            role="button"
+            onClick={() => setActiveScreen("list")}
+            className={`nav_link_item cursor-pointer ${activeScreen === "list" ? "active_screen" : ""}`}
+          >
+            <ListIcon width={16} height={16} color="black" />
+            <span className="nav_link_item_label">Task</span>
+          </div>
+          <div
+            role="button"
+            onClick={() => setActiveScreen("user")}
+            className={`nav_link_item cursor-pointer ${activeScreen === "user" ? "active_screen" : ""}`}
+          >
+            <PersonIcon width={16} height={16} color="black" />
+            <span className="nav_link_item_label">Assignee</span>
+          </div>
+          <div
+            role="button"
+            onClick={() => setActiveScreen("completed")}
+            className={`nav_link_item cursor-pointer ${activeScreen === "completed" ? "active_screen" : ""}`}
+          >
+            <CheckIcon width={16} height={16} color="black" checked />
+            <span className="nav_link_item_label">Completed</span>
+            {completeCount > 0 && (
+              <span className="completed_count">{completeCount}</span>
+            )}
+          </div>
         </div>
-        <div
-          role="button"
-          onClick={() => setActiveScreen("user")}
-          className={`nav_link_item cursor-pointer ${activeScreen === "user" ? "active_user_screen" : ""}`}
-        >
-          <PersonIcon width={20} height={20} color="black" />
-        </div>
-        <div
-          role="button"
-          onClick={() => setActiveScreen("completed")}
-          className={`nav_link_item cursor-pointer ${activeScreen === "completed" ? "active_completed_screen" : ""}`}
-        >
-          <CheckIcon width={20} height={20} color="black" checked />
-          {completeCount > 0 && (
-            <span className="completed_count">{completeCount}</span>
-          )}
-        </div>
+        <p className="nav_version">v1.0.0</p>
       </div>
     );
   }
