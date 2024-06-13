@@ -18,7 +18,13 @@
 .todo_th__item {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.todo_th__item_label {
+  font-size: 14px;
+  color: var(--figma-color-text-disabled);
 }
 
 .todo_th__check {
@@ -26,21 +32,17 @@
 }
 
 .todo_th__text {
-  display: flex;
-  justify-content: flex-start;
   flex: 1;
 }
 
 .todo_th__date {
-  display: flex;
-  justify-content: flex-start;
   width: 140px;
+  padding-right: 16px;
 }
 
 .todo_th__user {
-  display: flex;
-  justify-content: flex-start;
   width: 140px;
+  padding-right: 16px;
 }
 
 .todo_th__delete {
@@ -79,6 +81,35 @@
   width: 32px;
   display: flex;
   justify-content: flex-start;
+}
+
+.todo_td__check_item {
+  width: 20px;
+  height: 20px;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.todo_td__check_item:hover {
+  transform: scale(1.1);
+}
+
+.figma-dark .todo_td__check_item {
+  background-color: var(--custom-nav-active-dark);
+  border: solid 1px var(--custom-nav-active-dark);
+}
+
+.figma-dark .todo_td__check_item:hover {
+  border: solid 1px var(--custom-nav-active-hover-light);
+}
+
+.figma-light .todo_td__check_item {
+  background-color: var(--custom-nav-active-light);
+  border: solid 1px var(--custom-nav-active-light);
+}
+
+.figma-light .todo_td__check_item:hover {
+  border: solid 1px var(--custom-nav-active-hover-dark);
 }
 
 .todo_td__text {

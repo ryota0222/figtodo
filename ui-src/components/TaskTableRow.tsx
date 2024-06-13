@@ -9,7 +9,6 @@ import {
 import { TaskItem, UserItem } from "../type";
 import { DeleteIcon } from "../assets/icon/Delete";
 import Linkify from "linkify-react";
-import { CheckIcon } from "../assets/icon/Check";
 import { TaskLink } from "./TaskLink";
 
 interface Props {
@@ -138,8 +137,6 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
     handleUpdate();
   }, [assignee]);
 
-  console.log(data.text);
-
   return (
     <div className="todo_tr">
       <div
@@ -147,7 +144,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
         className="todo_td__item todo_td__check cursor-pointer"
         onClick={handleCheck}
       >
-        <CheckIcon width={16} height={16} checked={false} />
+        <div className="todo_td__check_item" />
       </div>
       <div className="todo_td__item todo_td__text">
         <div
