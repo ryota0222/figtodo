@@ -3,13 +3,14 @@ import { AddIcon } from "../assets/icon/Add";
 
 interface Props {
   onClick: () => void;
+  disabled?: boolean;
 }
 
-export const AddButton: FC<Props> = ({ onClick }) => {
+export const AddButton: FC<Props> = ({ onClick, disabled }) => {
   return (
-    <button className="add_button" onClick={onClick}>
-      <AddIcon width={20} height={20} color="white" />
-      <span className="add_button__text">Add Item</span>
+    <button className="primary_button" onClick={onClick} disabled={disabled}>
+      <AddIcon width={16} height={16} color="#FFFFFF" />
+      <span className="primary_button__text">Add</span>
     </button>
   );
 };
