@@ -1,13 +1,13 @@
 import { FC } from "react";
-import { useFetchUser } from "../hooks/useFetchUser";
-import { AddButton } from "./AddButton";
-import { UserRow } from "./UserRow";
+import { useFetchUser } from "../../hooks/useFetchUser";
+import { UserRow } from "../../features/user/UserRow";
+import { AddUserForm } from "../../features/user/AddUserForm";
 
 export const UserScreen: FC = () => {
   const { users } = useFetchUser();
-  const handleAdd = () => {
-    parent.postMessage({ pluginMessage: { type: "add-user" } }, "*");
-  };
+  // const handleAdd = () => {
+  //   parent.postMessage({ pluginMessage: { type: "add-user" } }, "*");
+  // };
 
   return (
     <div className="container">
@@ -24,14 +24,12 @@ export const UserScreen: FC = () => {
         </>
       ) : (
         <div className="user_container">
+          <AddUserForm />
           {users.map((user, idx) => (
             <UserRow key={`${user.id}-${idx}`} data={user} />
           ))}
         </div>
       )}
-      <div className="add_button_wrapper">
-        <AddButton onClick={handleAdd} />
-      </div>
     </div>
   );
 };

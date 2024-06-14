@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { ListScreen } from "./ListScreen";
-import { UserScreen } from "./UserScreen";
-import { CompletedScreen } from "./CompletedScreen";
+import { ListScreen } from "../screens/ListScreen";
+import { UserScreen } from "../screens/UserScreen";
+import { CompletedScreen } from "../screens/CompletedScreen";
 import { TaskItem } from "../type";
 
 interface Props {

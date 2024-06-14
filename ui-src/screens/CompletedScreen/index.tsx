@@ -1,8 +1,8 @@
 import { FC, Fragment } from "react";
-import { TaskItem } from "../type";
-import { TaskTableHeader } from "./TaskTableHeader";
-import { CompletedTaskTableRow } from "./TaskTableRow";
-import { useFetchUser } from "../hooks/useFetchUser";
+import { TaskItem } from "../../type";
+import { CompletedTaskTableRow } from "../../features/todo/TaskTableRow";
+import { useFetchUser } from "../../hooks/useFetchUser";
+import { TaskTableHeader } from "../../features/todo/TaskTableHeader";
 
 interface Props {
   todos: TaskItem[];

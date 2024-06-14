@@ -6,10 +6,11 @@ import {
   useRef,
   useState,
 } from "react";
-import { TaskItem, UserItem } from "../type";
-import { DeleteIcon } from "../assets/icon/Delete";
+import { TaskItem, UserItem } from "../../type";
+import { DeleteIcon } from "../../assets/icon/Delete";
 import Linkify from "linkify-react";
 import { TaskLink } from "./TaskLink";
+import { CheckIcon } from "../../assets/icon/Check";
 
 interface Props {
   data: TaskItem;
@@ -166,7 +167,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
           )}
         </div>
       </div>
-      <div className="todo_td__item todo_td__date">
+      <div className="todo_td__item todo_td__date cursor-pointer">
         <input
           type="date"
           value={date}
@@ -174,7 +175,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
           className="todo_input"
         />
       </div>
-      <div className="todo_td__item todo_td__user">
+      <div className="todo_td__item todo_td__user cursor-pointer">
         <select
           className="todo_input"
           value={assignee}
@@ -185,7 +186,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
           </option>
           {users.map((user) => (
             <option key={user.id} value={user.id}>
-              {user.name}
+              <p>{user.name}</p>
             </option>
           ))}
         </select>
@@ -205,9 +206,11 @@ export const CompletedTaskTableRow: FC<Props> = ({ data, users }) => {
   const user = users.find((user) => user.id === data.assigneeId);
   return (
     <div className="todo_tr completed_todo_tr">
-      <div className="todo_td__item todo_td__check"></div>
+      <div className="todo_td__item todo_td__check">
+        <CheckIcon checked width={20} height={20} />
+      </div>
       <div className="todo_td__item todo_td__text">
-        <div className="todo_td_text_wrapper">
+        <div className="todo_td_text_wrapper completed">
           <Linkify tagName="div" options={options}>
             {!data.text?.length ? "--" : data.text}
           </Linkify>

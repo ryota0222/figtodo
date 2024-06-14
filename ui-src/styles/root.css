@@ -17,6 +17,10 @@
   --custom-nav-active-light: #f4f4f5;
   --custom-nav-active-hover-dark: #3a3a3a60;
   --custom-nav-active-hover-light: #f4f4f560;
+  --custom-nav-container-border-dark: #444444;
+  --custom-nav-container-border-light: #f4f4f5;
+  --custom-text-dark: #cccccc;
+  --custom-text-light: #333;
   --color-bg: var(--figma-color-bg);
   --color-bg-hover: var(--figma-color-bg-hover);
   --color-bg-active: var(--figma-color-bg-pressed);
@@ -102,10 +106,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
   left: 0;
   top: 0;
-}
-
-svg {
-  stroke: var(--color-icon, var(--figma-color-icon));
 }
 
 main {

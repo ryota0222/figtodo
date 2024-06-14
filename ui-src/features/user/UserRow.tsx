@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
-import { DeleteIcon } from "../assets/icon/Delete";
-import { UserItem } from "../type";
+import { DeleteIcon } from "../../assets/icon/Delete";
+import { UserItem } from "../../type";
+// import { Avatar } from "../../components/Avatar";
 
 interface Props {
   data: UserItem;
@@ -21,6 +22,7 @@ export const UserRow: FC<Props> = ({ data }) => {
   };
   return (
     <div className="user_wrapper">
+      {/* <Avatar name={name} /> */}
       <input
         className="user__input"
         value={name}

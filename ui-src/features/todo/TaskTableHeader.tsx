@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { TextIcon } from "../assets/icon/Text";
-import { CalenderIcon } from "../assets/icon/Calender";
-import { PersonIcon } from "../assets/icon/Person";
+import { TextIcon } from "../../assets/icon/Text";
+import { CalenderIcon } from "../../assets/icon/Calender";
+import { PersonIcon } from "../../assets/icon/Person";
 
 export const TaskTableHeader: FC = () => {
   return (

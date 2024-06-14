@@ -15,11 +15,11 @@
 }
 
 .figma-light .user__delete_button svg path {
-  fill: black;
+  fill: #333;
 }
 
 .figma-dark .user__delete_button svg path {
-  fill: white;
+  fill: #ddd;
 }
 
 .figma-light .active_user_screen {

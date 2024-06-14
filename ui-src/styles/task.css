@@ -1,18 +1,32 @@
 .todo_container {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.1);
 }
 
-.todo_announce {
-  color: var(--figma-color-text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 8px;
-  text-align: left;
+.figma-dark .todo_container {
+  background-color: var(--custom-nav-bg-dark);
+  border: solid 1px var(--custom-nav-container-border-dark);
+}
+
+.figma-light .todo_container {
+  background-color: var(--custom-nav-bg-light);
+  border: solid 1px var(--custom-nav-container-border-light);
 }
 
 .todo_th {
   width: 100%;
   display: flex;
   height: 32px;
+}
+
+.figma-dark .todo_th {
+  border-bottom: solid 1px var(--custom-nav-container-border-dark);
+}
+
+.figma-light .todo_th {
+  border-bottom: solid 1px var(--custom-nav-container-border-light);
 }
 
 .todo_th__item {
@@ -65,6 +79,14 @@
   width: 100%;
   display: flex;
   padding: 12px 0;
+}
+
+.figma-dark .todo_tr {
+  border-bottom: solid 1px var(--custom-nav-container-border-dark);
+}
+
+.figma-light .todo_tr {
+  border-bottom: solid 1px var(--custom-nav-container-border-light);
 }
 
 .completed_todo_tr {
@@ -130,13 +152,26 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
 }
 
-.todo_td__text .todo_td_text_wrapper:hover {
+.figma-dark .todo_td__text .todo_td_text_wrapper {
+  color: var(--custom-text-dark);
+}
+
+.figma-light .todo_td__text .todo_td_text_wrapper {
+  color: var(--custom-text-light);
+}
+
+.todo_td__text .todo_td_text_wrapper:not(.completed):hover {
   cursor: text;
+  background-color: var(--figma-color-bg-secondary);
 }
 
-.todo_td__text .todo_td_text_wrapper:focus {
+.todo_td__text .todo_td_text_wrapper:not(.completed):focus {
   outline: none;
 }
 
@@ -145,10 +180,11 @@
   justify-content: flex-start;
   width: 140px;
   padding-right: 16px;
+  font-size: 14px;
 }
 
 .todo_td__date.completed {
-  padding-right: 0px;
+  max-width: 140px;
 }
 
 .todo_td__user {
@@ -156,14 +192,32 @@
   justify-content: flex-start;
   width: 140px;
   padding-right: 16px;
+  font-size: 14px;
 }
 
 .todo_td__user.completed {
-  padding-right: 0px;
+  max-width: 140px;
+}
+
+.figma-dark .todo_td__user.completed {
+  color: var(--custom-text-dark);
+}
+
+.figma-light .todo_td__user.completed {
+  color: var(--custom-text-light);
+}
+
+.figma-dark .todo_td__date.completed {
+  color: var(--custom-text-dark);
+}
+
+.figma-light .todo_td__date.completed {
+  color: var(--custom-text-light);
 }
 
 .todo_td__delete {
   width: 40px;
+  border-radius: 8px;
 }
 
 .todo_td__delete:hover {
@@ -175,15 +229,75 @@
 }
 
 .todo_input {
-  background-color: var(--figma-color-bg-secondary);
+  background-color: var(--figma-color-bg);
   outline: none;
   font-size: 14px;
   border-radius: 8px;
   height: 36px;
-  color: var(--figma-color-text);
   width: 100%;
   border: none;
   text-align: left;
   padding: 0.5rem;
   appearance: none;
+  transition: background-color 0.2s;
+}
+
+.figma-dark .todo_input {
+  color: var(--custom-text-dark);
+}
+
+.figma-light .todo_input {
+  color: var(--custom-text-light);
+}
+
+.todo_input:hover,
+.todo_input:focus {
+  background-color: var(--figma-color-bg-secondary);
+}
+
+.add_todo_form_container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.add_todo_form_textarea {
+  flex: 1;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--figma-color-text);
+  min-height: 64px;
+  resize: vertical;
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    Segoe UI,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    Open Sans,
+    Helvetica Neue,
+    sans-serif;
+  transition: background-color 0.2s;
+}
+
+.figma-dark .add_todo_form_textarea {
+  background-color: var(--custom-nav-active-dark);
+}
+
+.figma-light .add_todo_form_textarea {
+  background-color: var(--custom-nav-active-light);
+}
+
+.figma-dark .add_todo_form_textarea:hover,
+.figma-dark .add_todo_form_textarea:focus {
+  background-color: var(--custom-nav-container-border-dark);
+}
+
+.figma-light .add_todo_form_textarea:hover,
+.figma-light .add_todo_form_textarea:focus {
+  background-color: var(--custom-nav-container-border-light);
 }
