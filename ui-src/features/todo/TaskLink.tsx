@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from "react";
-
+import { OtherEvents } from "../../../plugin-src/event";
 interface Props {
   content: string;
   href: string;
@@ -22,11 +22,14 @@ export const TaskLink: FC<Props> = ({ content, href }) => {
       // x-xの形式をx:xに変換
       const nodeId = url.searchParams.get("node-id")?.replace("-", ":");
       parent.postMessage(
-        { pluginMessage: { type: "navigate-to-node", nodeId } },
+        { pluginMessage: { type: OtherEvents.NAVIGATE_TO_NODE, nodeId } },
         "*"
       );
     } else {
-      parent.postMessage({ pluginMessage: { type: "open-url", href } }, "*");
+      parent.postMessage(
+        { pluginMessage: { type: OtherEvents.OPEN_URL, href } },
+        "*"
+      );
     }
   };
   const displayContent = useMemo(() => {

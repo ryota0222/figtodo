@@ -1,11 +1,15 @@
 import { FC, useState } from "react";
 import { AddButton } from "../../components/AddButton";
+import { UserEvents } from "../../../plugin-src/event";
 
 export const AddUserForm: FC = () => {
   const [text, setText] = useState("");
   const handleAdd = () => {
     if (!text.length) return;
-    parent.postMessage({ pluginMessage: { type: "add-user", text } }, "*");
+    parent.postMessage(
+      { pluginMessage: { type: UserEvents.ADD_USER, text } },
+      "*"
+    );
     setText("");
   };
   return (

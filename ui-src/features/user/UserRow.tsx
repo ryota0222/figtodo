@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { DeleteIcon } from "../../assets/icon/Delete";
 import { UserItem } from "../../type";
-// import { Avatar } from "../../components/Avatar";
+import { UserEvents } from "../../../plugin-src/event";
 
 interface Props {
   data: UserItem;
@@ -10,12 +10,15 @@ interface Props {
 export const UserRow: FC<Props> = ({ data }) => {
   const [name, setName] = useState(data.name);
   const handleDelete = (id: string) => {
-    parent.postMessage({ pluginMessage: { type: "delete-user", id } }, "*");
+    parent.postMessage(
+      { pluginMessage: { type: UserEvents.DELETE_USER, id } },
+      "*"
+    );
   };
   const handleUpdate = (id: string) => {
     if (name !== data.name) {
       parent.postMessage(
-        { pluginMessage: { type: "update-user", id, name } },
+        { pluginMessage: { type: UserEvents.UPDATE_USER, id, name } },
         "*"
       );
     }

@@ -11,6 +11,7 @@ import { DeleteIcon } from "../../assets/icon/Delete";
 import Linkify from "linkify-react";
 import { TaskLink } from "./TaskLink";
 import { CheckIcon } from "../../assets/icon/Check";
+import { TodoEvents } from "../../../plugin-src/event";
 
 interface Props {
   data: TaskItem;
@@ -43,7 +44,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
       parent.postMessage(
         {
           pluginMessage: {
-            type: "update-todo",
+            type: TodoEvents.UPDATE_TODO,
             id: data.id,
             text: data.text,
             date,
@@ -59,7 +60,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
     parent.postMessage(
       {
         pluginMessage: {
-          type: "update-todo",
+          type: TodoEvents.UPDATE_TODO,
           id: data.id,
           text: text,
           date: data.date,
@@ -74,7 +75,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
     parent.postMessage(
       {
         pluginMessage: {
-          type: "delete-todo",
+          type: TodoEvents.DELETE_TODO,
           id: data.id,
         },
       },
@@ -114,7 +115,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
     parent.postMessage(
       {
         pluginMessage: {
-          type: "check-todo",
+          type: TodoEvents.COMPLETE_TODO,
           id: data.id,
         },
       },
@@ -204,10 +205,26 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
 
 export const CompletedTaskTableRow: FC<Props> = ({ data, users }) => {
   const user = users.find((user) => user.id === data.assigneeId);
+  const handleUncheck = () => {
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: TodoEvents.UNCOMPLETE_TODO,
+          id: data.id,
+        },
+      },
+      "*"
+    );
+  };
+
   return (
     <div className="todo_tr completed_todo_tr">
-      <div className="todo_td__item todo_td__check">
-        <CheckIcon checked width={20} height={20} />
+      <div
+        className="todo_td__item todo_td__check completed cursor-pointer"
+        role="button"
+        onClick={handleUncheck}
+      >
+        <CheckIcon checked width={20} height={20} color="#338EF7" />
       </div>
       <div className="todo_td__item todo_td__text">
         <div className="todo_td_text_wrapper completed">

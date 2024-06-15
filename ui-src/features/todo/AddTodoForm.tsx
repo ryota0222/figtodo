@@ -1,11 +1,15 @@
 import { FC, useState } from "react";
 import { AddButton } from "../../components/AddButton";
+import { TodoEvents } from "../../../plugin-src/event";
 
 export const AddTodoForm: FC = () => {
   const [text, setText] = useState("");
   const handleAdd = () => {
     if (!text.length) return;
-    parent.postMessage({ pluginMessage: { type: "add-todo", text } }, "*");
+    parent.postMessage(
+      { pluginMessage: { type: TodoEvents.ADD_TODO, text } },
+      "*"
+    );
     setText("");
   };
   return (

@@ -5,6 +5,7 @@ import uuid from "../node_modules/uuid-random/index";
 import * as taskController from "./controller/task";
 import * as userController from "./controller/user";
 import * as navigateController from "./controller/navigate";
+import { OtherEvents, TodoEvents, UserEvents } from "./event";
 
 figma.showUI(__html__, { themeColors: true, width: 1000, height: 600 });
 
@@ -23,17 +24,17 @@ figma.ui.onmessage = async (params) => {
   /**
    * file操作
    */
-  if (params.type === "get-file-id") {
+  if (params.type === OtherEvents.GET_FILE_ID) {
     figma.ui.postMessage({ type: "file-id", fileId });
   }
   /**
    * todo操作
    */
-  if (params.type === "get-todos") {
+  if (params.type === TodoEvents.GET_TODOS) {
     taskController.getTodos(fileId);
-  } else if (params.type === "add-todo") {
+  } else if (params.type === TodoEvents.ADD_TODO) {
     taskController.addTodo(fileId, params.text);
-  } else if (params.type === "update-todo") {
+  } else if (params.type === TodoEvents.UPDATE_TODO) {
     taskController.updateTodo(
       fileId,
       params.id,
@@ -41,27 +42,29 @@ figma.ui.onmessage = async (params) => {
       params.date,
       params.assigneeId
     );
-  } else if (params.type === "delete-todo") {
+  } else if (params.type === TodoEvents.DELETE_TODO) {
     taskController.deleteTodo(fileId, params.id);
-  } else if (params.type === "check-todo") {
+  } else if (params.type === TodoEvents.COMPLETE_TODO) {
     taskController.checkTodo(fileId, params.id);
+  } else if (params.type === TodoEvents.UNCOMPLETE_TODO) {
+    taskController.uncheckTodo(fileId, params.id);
   }
   /**
    * user操作
    */
-  if (params.type === "get-users") {
+  if (params.type === UserEvents.GET_USERS) {
     userController.getUsers(fileId);
-  } else if (params.type === "add-user") {
+  } else if (params.type === UserEvents.ADD_USER) {
     userController.addUser(fileId, params.text);
-  } else if (params.type === "delete-user") {
+  } else if (params.type === UserEvents.DELETE_USER) {
     userController.deleteUser(fileId, params.id);
-  } else if (params.type === "update-user") {
+  } else if (params.type === UserEvents.UPDATE_USER) {
     userController.updateUser(fileId, params.id, params.name);
   }
   // その他操作
-  if (params.type === "navigate-to-node") {
+  if (params.type === OtherEvents.NAVIGATE_TO_NODE) {
     navigateController.navigateTo(params.nodeId);
-  } else if (params.type === "open-url") {
+  } else if (params.type === OtherEvents.OPEN_URL) {
     figma.openExternal(params.href);
   }
 };
