@@ -136,3 +136,34 @@ export const checkTodo = (fileId: string, id: string) => {
     figma.notify("Successfully checked the task");
   }
 };
+
+// チェックを外す
+export const uncheckTodo = (fileId: string, id: string) => {
+  const todos = JSON.parse(
+    figma.root.getPluginData(`${fileId}:todos`) || "[]"
+  ) as TaskItem[];
+  const index = todos.findIndex((todo) => todo.id === id);
+  if (index >= 0) {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          id: todo.id,
+          text: todo.text,
+          date: todo.date,
+          assigneeId: todo.assigneeId,
+          completedAt: "",
+          deletedAt: todo.deletedAt,
+          createdAt: todo.createdAt,
+          updatedAt: new Date().toISOString(),
+        };
+      }
+      return todo;
+    });
+    figma.root.setPluginData(`${fileId}:todos`, JSON.stringify(newTodos));
+    figma.ui.postMessage({
+      type: "todos",
+      todos: _filterAndSortTodos(newTodos),
+    });
+    figma.notify("Successfully unchecked the task");
+  }
+};

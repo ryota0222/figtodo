@@ -103,13 +103,17 @@
   width: 32px;
   display: flex;
   justify-content: flex-start;
+  transition: transform 0.2s;
+}
+
+.todo_td__check.completed:hover {
+  transform: scale(1.2);
 }
 
 .todo_td__check_item {
   width: 20px;
   height: 20px;
   border-radius: 12px;
-  transition: all 0.2s;
 }
 
 .todo_td__check_item:hover {
