@@ -88,11 +88,6 @@
   background-color: var(--custom-bg-dark);
 }
 
-.empty_state_text {
-  color: var(--custom-gray-400);
-  padding: 2rem 0;
-}
-
 .primary_button {
   display: flex;
   gap: 8px;
@@ -132,4 +127,18 @@
   padding: 2px 5px;
   background: #006fee;
   border-radius: 4px;
+}
+
+.empty_state_image {
+  width: 120px;
+  height: 120px;
+}
+
+.empty_state_text {
+  color: var(--custom-gray-400);
+}
+
+.empty_screen_container {
+  width: 100%;
+  padding-top: 10%;
 }

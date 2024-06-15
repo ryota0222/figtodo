@@ -3,6 +3,7 @@ import { TaskItem } from "../../type";
 import { CompletedTaskTableRow } from "../../features/todo/TaskTableRow";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { TaskTableHeader } from "../../features/todo/TaskTableHeader";
+import { EmptyScreen } from "./EmptyScreen";
 
 interface Props {
   todos: TaskItem[];
@@ -16,13 +17,7 @@ export const CompletedScreen: FC<Props> = ({ todos }) => {
         Completed{todos.length > 0 ? `（${todos.length}）` : ""}
       </h1>
       {todos.length === 0 ? (
-        <>
-          <p className="empty_state_text">
-            You haven't finished any tasks yet.&nbsp;
-            <br />
-            Keep up the good work!
-          </p>
-        </>
+        <EmptyScreen />
       ) : (
         <div className="todo_container">
           <TaskTableHeader />

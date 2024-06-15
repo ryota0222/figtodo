@@ -5,6 +5,7 @@ import { PendingTaskTableRow } from "../../features/todo/TaskTableRow";
 import { useFetchUser } from "../../hooks/useFetchUser";
 import { AddTodoForm } from "../../features/todo/AddTodoForm";
 import { TaskTableHeader } from "../../features/todo/TaskTableHeader";
+import { EmptyScreen } from "./EmptyScreen";
 
 interface Props {
   todos: TaskItem[];
@@ -19,13 +20,7 @@ export const ListScreen: FC<Props> = ({ todos }) => {
         Tasks{todos.length > 0 ? `（${todos.length}）` : ""}
       </h1>
       {todos.length === 0 ? (
-        <>
-          <p className="empty_state_text">
-            Looks like you have no tasks.&nbsp;
-            <br />
-            How about starting a new project?
-          </p>
-        </>
+        <EmptyScreen />
       ) : (
         <div className="todo_container">
           <AddTodoForm />
