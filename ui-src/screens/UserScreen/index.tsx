@@ -13,7 +13,12 @@ export const UserScreen: FC = () => {
         Assignees{users.length ? `（${users.length}）` : ""}
       </h1>
       {users.length === 0 ? (
-        <EmptyScreen />
+        <>
+          <div className="user_container">
+            <AddUserForm />
+          </div>
+          <EmptyScreen />
+        </>
       ) : (
         <div className="user_container">
           <AddUserForm />

@@ -4,8 +4,18 @@ export const navigateTo = async (nodeId: string) => {
 
   for (const page of figma.root.children) {
     await page.loadAsync();
-    console.log(JSON.stringify(page.children, null, 2));
-    console.log(`Page ${page.name} has ${page.children.length} children`);
+    // console.log(
+    //   `Page ${page.name} has ${page.children.length} children（${JSON.stringify(page.children)}）`
+    // );
+    // memo: creatorはfigmaで作成できない
+    // try {
+    //   const connector = figma.createConnector();
+    //   console.log(`connector: ${JSON.stringify(connector)}`);
+    // } catch (err) {
+    //   console.log(`err: ${err}`);
+    // }
+    // const node4 = await figma.getNodeByIdAsync("2001:4");
+    // console.log(`node4: ${JSON.stringify(node4 ? node4.type : "null")}`); // node4: "CONNECTOR"
     const node = page.findChild((node) => node.id === nodeId);
     if (node) {
       await figma.setCurrentPageAsync(page);

@@ -2,6 +2,8 @@ import { memo } from "react";
 import { ListIcon } from "../assets/icon/List";
 import { PersonIcon } from "../assets/icon/Person";
 import { CheckIcon } from "../assets/icon/Check";
+import { ClosePanelIcon } from "../assets/icon/ClosePanel";
+import { OtherEvents } from "../../plugin-src/event";
 
 interface Props {
   activeScreen: "list" | "user" | "completed";
@@ -13,8 +15,26 @@ interface Props {
 
 export const NavPanel = memo<Props>(
   ({ activeScreen, setActiveScreen, completeCount }) => {
+    const minimizePanel = () => {
+      parent.postMessage(
+        { pluginMessage: { type: OtherEvents.MINIMIZE_PLUGIN } },
+        "*"
+      );
+    };
     return (
       <div className="nav_panel">
+        <div>
+          <p className="nav_panel_title">action</p>
+          <div
+            role="button"
+            onClick={minimizePanel}
+            className={`nav_link_item cursor-pointer`}
+          >
+            <ClosePanelIcon width={16} height={16} color="black" />
+            <span className="nav_link_item_label">Minimize</span>
+          </div>
+        </div>
+
         <p className="nav_panel_title">page</p>
         <div className="nav_panel_link_wrapper">
           <div
@@ -45,7 +65,7 @@ export const NavPanel = memo<Props>(
             )}
           </div>
         </div>
-        <p className="nav_version">v1.0.0</p>
+        <p className="nav_version">version 3</p>
       </div>
     );
   }

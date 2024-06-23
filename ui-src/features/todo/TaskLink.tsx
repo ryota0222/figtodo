@@ -15,7 +15,6 @@ export const TaskLink: FC<Props> = ({ content, href }) => {
   }, [href]);
   const handleClick = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     e.stopPropagation();
-    console.log("click");
     if (isFigmaLink) {
       // URLからnode-idのqueryを取得
       const url = new URL(href);

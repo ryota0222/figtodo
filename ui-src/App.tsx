@@ -8,12 +8,23 @@ import "./styles/user.css";
 import { useFetchTodo } from "./hooks/useFetchTodo";
 import { NavPanel } from "./components/NavPanel";
 import { MainPanel } from "./components/MainPanel";
+import { usePanelInfo } from "./hooks/usePanelInfo";
+import { ExpandPanelIcon } from "./assets/icon/ExpandPanel";
+import { OtherEvents } from "../plugin-src/event";
 
 function App() {
   const [activeScreen, setActiveScreen] = useState<
     "list" | "user" | "completed"
   >("list");
   const { todos } = useFetchTodo();
+  const { panelInfo } = usePanelInfo();
+
+  const maximizePanel = () => {
+    parent.postMessage(
+      { pluginMessage: { type: OtherEvents.MAXIMIZE_PLUGIN } },
+      "*"
+    );
+  };
 
   const pendingTodos = useMemo(
     () => todos.filter((todo) => !todo.completedAt?.length),
@@ -34,16 +45,30 @@ function App() {
 
   return (
     <main>
-      <NavPanel
-        activeScreen={activeScreen}
-        setActiveScreen={setActiveScreen}
-        completeCount={completedTodos.length}
-      />
-      <MainPanel
-        activeScreen={activeScreen}
-        pendingTodos={pendingTodos}
-        completedTodos={completedTodos}
-      />
+      {panelInfo.size === "maximize" ? (
+        <>
+          <NavPanel
+            activeScreen={activeScreen}
+            setActiveScreen={setActiveScreen}
+            completeCount={completedTodos.length}
+          />
+          <MainPanel
+            activeScreen={activeScreen}
+            pendingTodos={pendingTodos}
+            completedTodos={completedTodos}
+          />
+        </>
+      ) : (
+        <div
+          role="button"
+          onClick={maximizePanel}
+          style={{ margin: "12px 0" }}
+          className={`nav_link_item cursor-pointer`}
+        >
+          <ExpandPanelIcon width={16} height={16} color="black" />
+          <span className="nav_link_item_label">Maximize</span>
+        </div>
+      )}
     </main>
   );
 }

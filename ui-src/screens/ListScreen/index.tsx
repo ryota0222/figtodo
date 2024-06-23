@@ -20,7 +20,12 @@ export const ListScreen: FC<Props> = ({ todos }) => {
         Tasks{todos.length > 0 ? `（${todos.length}）` : ""}
       </h1>
       {todos.length === 0 ? (
-        <EmptyScreen />
+        <>
+          <div className="todo_container">
+            <AddTodoForm />
+          </div>
+          <EmptyScreen />
+        </>
       ) : (
         <div className="todo_container">
           <AddTodoForm />

@@ -66,5 +66,11 @@ figma.ui.onmessage = async (params) => {
     navigateController.navigateTo(params.nodeId);
   } else if (params.type === OtherEvents.OPEN_URL) {
     figma.openExternal(params.href);
+  } else if (params.type === OtherEvents.MINIMIZE_PLUGIN) {
+    figma.ui.resize(135, 60);
+    figma.ui.postMessage({ type: "panel", size: "minimize" });
+  } else if (params.type === OtherEvents.MAXIMIZE_PLUGIN) {
+    figma.ui.resize(1000, 600);
+    figma.ui.postMessage({ type: "panel", size: "maximize" });
   }
 };

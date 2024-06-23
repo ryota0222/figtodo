@@ -19,7 +19,7 @@ export const AddTodoForm: FC = () => {
         onChange={(e) => setText(e.target.value)}
         className="add_todo_form_textarea"
         placeholder={`Add a new task...
-💡 Hint: the line breaks in the text should be made with ‘Shift + Enter’`}
+💡 Hint: the line breaks in the text should be made with Enter`}
       />
       <div>
         <AddButton onClick={handleAdd} disabled={!text.length} />

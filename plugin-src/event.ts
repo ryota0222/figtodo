@@ -25,4 +25,7 @@ export const OtherEvents = {
   NAVIGATE_TO_NODE: "navigate-to-node",
   OPEN_URL: "open-url",
   GET_FILE_ID: "get-file-id",
+  MINIMIZE_PLUGIN: "minimize-plugin",
+  MAXIMIZE_PLUGIN: "maximize-plugin",
+  GET_PANEL_INFO: "get-panel-info",
 };
