@@ -150,7 +150,7 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
       </div>
       <div className="todo_td__item todo_td__text">
         <div
-          contentEditable
+          contentEditable={isEditing}
           className="todo_td_text_wrapper"
           ref={textRef}
           onBlur={handleBlur}
