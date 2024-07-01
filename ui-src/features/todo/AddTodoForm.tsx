@@ -12,14 +12,20 @@ export const AddTodoForm: FC = () => {
     );
     setText("");
   };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && e.metaKey) {
+      handleAdd();
+    }
+  };
   return (
     <div className="add_todo_form_container">
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
         className="add_todo_form_textarea"
+        onKeyDown={(e) => handleKeyDown(e)}
         placeholder={`Add a new task...
-💡 Hint: the line breaks in the text should be made with Enter`}
+💡 Hint:  line breaks can be made with Enter. You can submit with Command + Enter.`}
       />
       <div>
         <AddButton onClick={handleAdd} disabled={!text.length} />

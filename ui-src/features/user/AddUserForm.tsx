@@ -12,12 +12,18 @@ export const AddUserForm: FC = () => {
     );
     setText("");
   };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && e.metaKey) {
+      handleAdd();
+    }
+  };
   return (
     <div className="add_user_form_container">
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
         className="add_user_form_input"
+        onKeyDown={(e) => handleKeyDown(e)}
         placeholder={`Add a new user...`}
       />
       <div>
