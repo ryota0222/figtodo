@@ -14,18 +14,28 @@ export const UserScreen: FC = () => {
       </h1>
       {users.length === 0 ? (
         <>
-          <div className="user_container">
+          <div style={{ marginTop: "16px" }}>
             <AddUserForm />
           </div>
-          <EmptyScreen />
+          <div className="user_container">
+            <EmptyScreen />
+          </div>
         </>
       ) : (
-        <div className="user_container">
-          <AddUserForm />
-          {users.map((user, idx) => (
-            <UserRow key={`${user.id}-${idx}`} data={user} />
-          ))}
-        </div>
+        <>
+          <div style={{ marginTop: "16px" }}>
+            <AddUserForm />
+          </div>
+          <div className="user_container">
+            {users.map((user, idx) => (
+              <UserRow
+                key={`${user.id}-${idx}`}
+                data={user}
+                isLast={idx === users.length - 1}
+              />
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

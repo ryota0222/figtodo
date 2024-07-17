@@ -5,9 +5,10 @@ import { UserEvents } from "../../../plugin-src/event";
 
 interface Props {
   data: UserItem;
+  isLast?: boolean;
 }
 
-export const UserRow: FC<Props> = ({ data }) => {
+export const UserRow: FC<Props> = ({ data, isLast = false }) => {
   const [name, setName] = useState(data.name);
   const handleDelete = (id: string) => {
     parent.postMessage(
@@ -24,7 +25,7 @@ export const UserRow: FC<Props> = ({ data }) => {
     }
   };
   return (
-    <div className="user_wrapper">
+    <div className={`user_wrapper ${isLast && "last"}`}>
       {/* <Avatar name={name} /> */}
       <input
         className="user__input"

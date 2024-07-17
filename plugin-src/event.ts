@@ -10,6 +10,7 @@ export const TodoEvents = {
   DELETE_TODO: "delete-todo",
   COMPLETE_TODO: "complete-todo",
   UNCOMPLETE_TODO: "uncomplete-todo",
+  ADD_SUB_TASK: "add-sub-task",
 };
 
 // user

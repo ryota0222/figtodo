@@ -7,7 +7,14 @@ import * as userController from "./controller/user";
 import * as navigateController from "./controller/navigate";
 import { OtherEvents, TodoEvents, UserEvents } from "./event";
 
-figma.showUI(__html__, { themeColors: true, width: 1000, height: 600 });
+const MAXIMIZE_SIZE = { width: 900, height: 600 };
+const MINIMUM_SIZE = { width: 135, height: 60 };
+
+figma.showUI(__html__, {
+  themeColors: true,
+  width: MAXIMIZE_SIZE.width,
+  height: MAXIMIZE_SIZE.height,
+});
 
 async function getFileId(): Promise<string> {
   // ファイルのルートノードからIDを取得または生成
@@ -48,6 +55,8 @@ figma.ui.onmessage = async (params) => {
     taskController.checkTodo(fileId, params.id);
   } else if (params.type === TodoEvents.UNCOMPLETE_TODO) {
     taskController.uncheckTodo(fileId, params.id);
+  } else if (params.type === TodoEvents.ADD_SUB_TASK) {
+    taskController.addSubTask(fileId, params.id);
   }
   /**
    * user操作
@@ -67,10 +76,10 @@ figma.ui.onmessage = async (params) => {
   } else if (params.type === OtherEvents.OPEN_URL) {
     figma.openExternal(params.href);
   } else if (params.type === OtherEvents.MINIMIZE_PLUGIN) {
-    figma.ui.resize(135, 60);
+    figma.ui.resize(MINIMUM_SIZE.width, MINIMUM_SIZE.height);
     figma.ui.postMessage({ type: "panel", size: "minimize" });
   } else if (params.type === OtherEvents.MAXIMIZE_PLUGIN) {
-    figma.ui.resize(1000, 600);
+    figma.ui.resize(MAXIMIZE_SIZE.width, MAXIMIZE_SIZE.height);
     figma.ui.postMessage({ type: "panel", size: "maximize" });
   }
 };

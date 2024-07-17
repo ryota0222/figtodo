@@ -1,3 +1,9 @@
+export interface SubTaskItem {
+  text: string;
+  completedAt: string;
+  deletedAt: string;
+}
+
 export interface TaskItem {
   id: string;
   text: string;
@@ -7,6 +13,7 @@ export interface TaskItem {
   deletedAt: string;
   createdAt: string;
   updatedAt: string;
+  subTasks: SubTaskItem[];
 }
 
 export interface UserItem {

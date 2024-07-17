@@ -23,11 +23,11 @@
   gap: 12px;
 }
 
-.figma-dark .user_wrapper {
+.figma-dark .user_wrapper:not(.last) {
   border-bottom: solid 1px var(--custom-nav-container-border-dark);
 }
 
-.figma-light .user_wrapper {
+.figma-light .user_wrapper:not(.last) {
   border-bottom: solid 1px var(--custom-nav-container-border-light);
 }
 
@@ -63,6 +63,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.user__delete_button {
+  width: 40px;
+  border-radius: 8px;
+  opacity: 0.6;
+}
+
+.user__delete_button:hover {
+  background-color: var(--figma-color-bg-hover);
+  opacity: 0.8;
 }
 
 .user__item:hover {

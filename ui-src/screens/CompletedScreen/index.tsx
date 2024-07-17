@@ -2,7 +2,7 @@ import { FC, Fragment } from "react";
 import { TaskItem } from "../../type";
 import { CompletedTaskTableRow } from "../../features/todo/TaskTableRow";
 import { useFetchUser } from "../../hooks/useFetchUser";
-import { TaskTableHeader } from "../../features/todo/TaskTableHeader";
+// import { TaskTableHeader } from "../../features/todo/TaskTableHeader";
 import { EmptyScreen } from "./EmptyScreen";
 
 interface Props {
@@ -20,10 +20,14 @@ export const CompletedScreen: FC<Props> = ({ todos }) => {
         <EmptyScreen />
       ) : (
         <div className="todo_container">
-          <TaskTableHeader />
-          {todos.map((todo) => (
+          {/* <TaskTableHeader /> */}
+          {todos.map((todo, idx) => (
             <Fragment key={todo.id}>
-              <CompletedTaskTableRow data={todo} users={users} />
+              <CompletedTaskTableRow
+                data={todo}
+                users={users}
+                isLast={idx === todos.length - 1}
+              />
             </Fragment>
           ))}
         </div>

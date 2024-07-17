@@ -65,7 +65,7 @@ export const NavPanel = memo<Props>(
             )}
           </div>
         </div>
-        <p className="nav_version">version 3</p>
+        <p className="nav_version">version 6</p>
       </div>
     );
   }

@@ -6,6 +6,8 @@
   font-size: 18px;
   text-align: left;
   margin: 0;
+  height: 24px;
+  padding-top: 4px;
 }
 
 .figma-light .nav_panel {
@@ -44,6 +46,18 @@
   border-radius: 8px;
   text-decoration: none;
   position: relative;
+}
+
+.nav_link_item .completed_count {
+  transition: opacity 0.2s;
+}
+
+.nav_link_item.active_screen .completed_count {
+  opacity: 0.8;
+}
+
+.nav_link_item:hover .completed_count {
+  opacity: 0.8;
 }
 
 .figma-light .nav_link_item:not(.active_screen):hover {
@@ -121,12 +135,13 @@
 }
 
 .completed_count {
-  color: white;
+  color: var(--figma-color-bg);
   font-size: 10px;
   font-weight: bold;
   padding: 2px 5px;
-  background: #006fee;
+  background: var(--figma-color-text);
   border-radius: 4px;
+  opacity: 0.4;
 }
 
 .empty_state_image {
@@ -140,5 +155,5 @@
 
 .empty_screen_container {
   width: 100%;
-  padding-top: 10%;
+  padding: 10% 0;
 }

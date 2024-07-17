@@ -12,10 +12,15 @@ import Linkify from "linkify-react";
 import { TaskLink } from "./TaskLink";
 import { CheckIcon } from "../../assets/icon/Check";
 import { TodoEvents } from "../../../plugin-src/event";
+import { PersonIcon } from "../../assets/icon/Person";
+import { CalenderIcon } from "../../assets/icon/Calender";
+import { AddIcon } from "../../assets/icon/Add";
+import { CloseIcon } from "../../assets/icon/Close";
 
 interface Props {
   data: TaskItem;
   users: UserItem[];
+  isLast?: boolean;
 }
 
 const options: import("linkifyjs").Opts = {
@@ -33,11 +38,17 @@ const options: import("linkifyjs").Opts = {
   },
 };
 
-export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
+export const PendingTaskTableRow: FC<Props> = ({
+  data,
+  users,
+  isLast = false,
+}) => {
   const textRef = useRef<HTMLDivElement>(null);
   const [date, setDate] = useState(data.date);
   const [assignee, setAssignee] = useState(data.assigneeId);
   const [isEditing, setIsEditing] = useState(false);
+
+  console.log(data);
 
   const handleUpdate = () => {
     if (data.assigneeId !== assignee || data.date !== date) {
@@ -123,6 +134,18 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
     );
   };
 
+  const handleAddSubTask = () => {
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: TodoEvents.ADD_SUB_TASK,
+          id: data.id,
+        },
+      },
+      "*"
+    );
+  };
+
   const handleMouseDown = (
     e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>
   ) => {
@@ -140,70 +163,110 @@ export const PendingTaskTableRow: FC<Props> = ({ data, users }) => {
   }, [assignee]);
 
   return (
-    <div className="todo_tr">
-      <div
-        role="button"
-        className="todo_td__item todo_td__check cursor-pointer"
-        onClick={handleCheck}
-      >
-        <div className="todo_td__check_item" />
-      </div>
-      <div className="todo_td__item todo_td__text">
+    <div className="todo_tr_container">
+      <div className={`todo_tr ${isLast && "last"}`}>
         <div
-          contentEditable={isEditing}
-          className="todo_td_text_wrapper"
-          ref={textRef}
-          onBlur={handleBlur}
-          onFocus={handleFocus}
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-          onMouseDown={(e) => handleMouseDown(e)}
+          role="button"
+          className="todo_td__item todo_td__check cursor-pointer"
+          onClick={handleCheck}
         >
-          {isEditing ? (
-            data.text
-          ) : (
-            <Linkify tagName="div" options={options}>
-              {data.text}
-            </Linkify>
-          )}
+          <div className="todo_td__check_item" />
+        </div>
+        <div className="todo_td__item todo_td__text">
+          <div
+            contentEditable={isEditing}
+            className="todo_td_text_wrapper"
+            ref={textRef}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
+            onMouseDown={(e) => handleMouseDown(e)}
+            role={isEditing ? "textbox" : undefined}
+            aria-multiline={isEditing ? true : undefined}
+          >
+            {isEditing ? (
+              data.text
+            ) : (
+              <Linkify tagName="div" options={options}>
+                {data.text}
+              </Linkify>
+            )}
+          </div>
+        </div>
+        <div className="todo_td__item todo_td__date cursor-pointer">
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="todo_input"
+          />
+        </div>
+        <div className="todo_td__item todo_td__user cursor-pointer">
+          <select
+            className="todo_input"
+            value={assignee}
+            onChange={(e) => setAssignee(e.target.value)}
+          >
+            <option value="">
+              {users.length === 0 ? "Create a user first" : "--"}
+            </option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                <p>{user.name}</p>
+              </option>
+            ))}
+          </select>
+        </div>
+        <div
+          role="button"
+          className="todo_td__item todo_td__delete cursor-pointer"
+          onClick={handleDelete}
+        >
+          <DeleteIcon width={16} height={16} />
         </div>
       </div>
-      <div className="todo_td__item todo_td__date cursor-pointer">
-        <input
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          className="todo_input"
-        />
-      </div>
-      <div className="todo_td__item todo_td__user cursor-pointer">
-        <select
-          className="todo_input"
-          value={assignee}
-          onChange={(e) => setAssignee(e.target.value)}
+      {/* サブタスク */}
+      <div className="sub_task_wrapper">
+        <div className="sub_task_wrapper_divider"></div>
+        {data.subTasks.map((subTask, idx) => (
+          <div key={`sub_task_${idx}`} className="sub_task_tr">
+            <div className="sub_task_td__item sub_task_td__check">
+              <input type="checkbox" className="sub_task_td_checkbox" />
+            </div>
+            <div className="sub_task_td__item sub_task_td__text">
+              {subTask.completedAt ? (
+                <span>{subTask.text}</span>
+              ) : (
+                <input value={subTask.text} type="text" />
+              )}
+            </div>
+            <div className="sub_task_td__item sub_task_td__delete">
+              <CloseIcon width={16} height={16} />
+            </div>
+          </div>
+        ))}
+        <div
+          className="add_sub_task_container"
+          role="button"
+          onClick={handleAddSubTask}
         >
-          <option value="">
-            {users.length === 0 ? "Create a user first" : "--"}
-          </option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              <p>{user.name}</p>
-            </option>
-          ))}
-        </select>
-      </div>
-      <div
-        role="button"
-        className="todo_td__item todo_td__delete cursor-pointer"
-        onClick={handleDelete}
-      >
-        <DeleteIcon width={16} height={16} />
+          <span className="add_sub_task_icon">
+            <AddIcon width={18} height={18} />
+          </span>
+          <span className="add_sub_task_label">Add Sub task...</span>
+        </div>
+        <div className="sub_task_wrapper_divider"></div>
       </div>
     </div>
   );
 };
 
-export const CompletedTaskTableRow: FC<Props> = ({ data, users }) => {
+export const CompletedTaskTableRow: FC<Props> = ({
+  data,
+  users,
+  isLast = false,
+}) => {
   const user = users.find((user) => user.id === data.assigneeId);
   const handleUncheck = () => {
     parent.postMessage(
@@ -218,7 +281,7 @@ export const CompletedTaskTableRow: FC<Props> = ({ data, users }) => {
   };
 
   return (
-    <div className="todo_tr completed_todo_tr">
+    <div className={`todo_tr completed_todo_tr ${isLast && "last"}`}>
       <div
         className="todo_td__item todo_td__check completed cursor-pointer"
         role="button"
@@ -233,11 +296,15 @@ export const CompletedTaskTableRow: FC<Props> = ({ data, users }) => {
           </Linkify>
         </div>
       </div>
+      {/* // TODO: カレンダーアイコン */}
       <div className="todo_td__item todo_td__date completed">
-        {data.date.length ? data.date.replaceAll("-", "/") : "--"}
+        <CalenderIcon width={16} height={16} />
+        <span>{data.date.length ? data.date.replaceAll("-", "/") : "--"}</span>
       </div>
+      {/* // TODO: ユーザーアイコン */}
       <div className="todo_td__item todo_td__user completed">
-        {user?.name?.length ? user.name : "--"}
+        <PersonIcon width={16} height={16} />
+        <span>{user?.name?.length ? user.name : "--"}</span>
       </div>
       <div className="todo_td__item todo_td__delete cursor-pointer"></div>
     </div>

@@ -2,15 +2,31 @@
 import uuid from "../../node_modules/uuid-random/index";
 import { TaskItem } from "../../ui-src/type";
 
+const toTasks = (tasks: Partial<TaskItem>[]) => {
+  return tasks.map((task) => ({
+    id: task.id || "",
+    text: task.text || "",
+    date: task.date || "",
+    assigneeId: task.assigneeId || "",
+    completedAt: task.completedAt || "",
+    deletedAt: task.deletedAt || "",
+    createdAt: task.createdAt || "",
+    updatedAt: task.updatedAt || "",
+    subTasks: typeof task.subTasks === "object" ? task.subTasks : [],
+  }));
+};
+
 const _filterAndSortTodos = (todos: TaskItem[]) => {
-  return todos
-    .filter((todo: TaskItem) => !todo.deletedAt.length)
-    .sort((a, b) => {
-      if (a.createdAt && b.createdAt) {
-        return a.createdAt > b.createdAt ? -1 : 1;
-      }
-      return 0;
-    });
+  return toTasks(
+    todos
+      .filter((todo: TaskItem) => !todo.deletedAt.length)
+      .sort((a, b) => {
+        if (a.createdAt && b.createdAt) {
+          return a.createdAt > b.createdAt ? -1 : 1;
+        }
+        return 0;
+      })
+  );
 };
 
 export const getTodos = (fileId: string) => {
@@ -34,12 +50,50 @@ export const addTodo = (fileId: string, text: string) => {
     deletedAt: "",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    subTasks: [],
   });
   figma.root.setPluginData(`${fileId}:todos`, JSON.stringify(todos));
   figma.ui.postMessage({
     type: "todos",
     todos: _filterAndSortTodos(todos),
   });
+};
+
+export const addSubTask = (fileId: string, id: string) => {
+  const todos = JSON.parse(
+    figma.root.getPluginData(`${fileId}:todos`) || "[]"
+  ) as TaskItem[];
+  const index = todos.findIndex((todo) => todo.id === id);
+  if (index >= 0) {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return {
+          id: todo.id,
+          text: todo.text,
+          date: todo.date,
+          assigneeId: todo.assigneeId,
+          completedAt: todo.completedAt,
+          deletedAt: todo.deletedAt,
+          createdAt: todo.createdAt,
+          updatedAt: new Date().toISOString(),
+          subTasks: [
+            ...(todo.subTasks || []),
+            {
+              text: "",
+              completedAt: "",
+              deletedAt: "",
+            },
+          ],
+        };
+      }
+      return todo;
+    });
+    figma.root.setPluginData(`${fileId}:todos`, JSON.stringify(newTodos));
+    figma.ui.postMessage({
+      type: "todos",
+      todos: _filterAndSortTodos(newTodos),
+    });
+  }
 };
 
 export const updateTodo = (
@@ -65,6 +119,7 @@ export const updateTodo = (
           deletedAt: todo.deletedAt,
           createdAt: todo.createdAt,
           updatedAt: new Date().toISOString(),
+          subTasks: todo.subTasks,
         };
       }
       return todo;
@@ -94,6 +149,7 @@ export const deleteTodo = (fileId: string, id: string) => {
           deletedAt: new Date().toISOString(),
           createdAt: todo.createdAt,
           updatedAt: new Date().toISOString(),
+          subTasks: todo.subTasks,
         };
       }
       return todo;
@@ -124,6 +180,7 @@ export const checkTodo = (fileId: string, id: string) => {
           deletedAt: todo.deletedAt,
           createdAt: todo.createdAt,
           updatedAt: new Date().toISOString(),
+          subTasks: todo.subTasks,
         };
       }
       return todo;
@@ -155,6 +212,7 @@ export const uncheckTodo = (fileId: string, id: string) => {
           deletedAt: todo.deletedAt,
           createdAt: todo.createdAt,
           updatedAt: new Date().toISOString(),
+          subTasks: todo.subTasks,
         };
       }
       return todo;

@@ -50,12 +50,12 @@
 }
 
 .todo_th__date {
-  width: 140px;
+  width: 120px;
   padding-right: 16px;
 }
 
 .todo_th__user {
-  width: 140px;
+  width: 120px;
   padding-right: 16px;
 }
 
@@ -81,15 +81,161 @@
   padding: 12px 0;
 }
 
-.figma-dark .todo_tr {
+.sub_task_wrapper {
+  padding-left: 32px;
+  width: 100%;
+}
+
+.sub_task_wrapper_divider {
+  width: calc(100% - 32px);
+  height: 1px;
+  background-color: var(--figma-color-bg-disabled);
+  opacity: 0.4;
+}
+
+.sub_task_tr {
+  width: calc(100% - 32px);
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.sub_task_td__check {
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sub_task_td_checkbox {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--figma-color-text-disabled);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sub_task_td_checkbox:not(:checked):hover {
+  background-color: var(--figma-color-bg-secondary);
+  transform: scale(1.1);
+}
+
+.sub_task_td_checkbox:checked {
+  background-color: var(--figma-color-bg-brand);
+}
+
+.sub_task_td_checkbox:checked::before {
+  position: absolute;
+  top: 2.5px;
+  left: 5.5px;
+  transform: rotate(40deg);
+  width: 3px;
+  height: 7px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  content: "";
+}
+
+.sub_task_td__text {
+  flex: 1;
+}
+
+.sub_task_td__text span {
+  font-size: 14px;
+  color: var(--figma-color-text);
+  opacity: 0.6;
+  text-decoration: line-through;
+  display: block;
+  text-align: left;
+  padding: 0 4px;
+}
+
+.sub_task_td__text input {
+  background-color: transparent;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  color: var(--figma-color-text);
+  height: 1.8rem;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+}
+
+.sub_task_td__delete {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  opacity: 0.6;
+}
+
+.sub_task_td__delete:hover {
+  background-color: var(--figma-color-bg-hover);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.sub_task_td__delete svg path {
+  fill: var(--figma-color-bg-inverse);
+}
+
+.add_sub_task_container {
+  width: calc(100% - 32px);
+  display: flex;
+  align-items: center;
+}
+
+.add_sub_task_container:hover {
+  cursor: pointer;
+  background-color: var(--figma-color-bg-secondary);
+}
+
+.add_sub_task_container:active {
+  background-color: var(--figma-color-bg-selected-pressed);
+}
+
+.add_sub_task_icon {
+  width: 32px;
+  padding: 8px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add_sub_task_label {
+  font-size: 14px;
+  color: var(--figma-color-text-disabled);
+  display: block;
+  padding: 8px 0;
+}
+
+.figma-dark .add_sub_task_icon svg path {
+  fill: var(--figma-color-bg-inverse);
+  opacity: 0.6;
+}
+
+.figma-light .add_sub_task_icon svg path {
+  fill: var(--figma-color-bg-inverse);
+  opacity: 0.6;
+}
+
+.figma-dark .todo_tr:not(.last) {
   border-bottom: solid 1px var(--custom-nav-container-border-dark);
 }
 
-.figma-light .todo_tr {
+.figma-light .todo_tr:not(.last) {
   border-bottom: solid 1px var(--custom-nav-container-border-light);
 }
 
-.completed_todo_tr {
+.completed_todo_tr:not(.last) {
   border-bottom: solid 1px var(--figma-color-bg-disabled);
 }
 
@@ -103,7 +249,6 @@
   width: 32px;
   display: flex;
   justify-content: flex-start;
-  transition: transform 0.2s;
 }
 
 .todo_td__check.completed:hover {
@@ -114,10 +259,15 @@
   width: 20px;
   height: 20px;
   border-radius: 12px;
+  transition: transform 0.2s;
 }
 
 .todo_td__check_item:hover {
   transform: scale(1.1);
+}
+
+.todo_td__check_item:active {
+  transform: scale(1);
 }
 
 .figma-dark .todo_td__check_item {
@@ -182,25 +332,29 @@
 .todo_td__date {
   display: flex;
   justify-content: flex-start;
-  width: 140px;
+  width: 120px;
   padding-right: 16px;
   font-size: 14px;
 }
 
 .todo_td__date.completed {
-  max-width: 140px;
+  max-width: 120px;
+  display: flex;
+  gap: 8px;
 }
 
 .todo_td__user {
   display: flex;
   justify-content: flex-start;
-  width: 140px;
+  width: 120px;
   padding-right: 16px;
   font-size: 14px;
 }
 
 .todo_td__user.completed {
-  max-width: 140px;
+  max-width: 120px;
+  display: flex;
+  gap: 8px;
 }
 
 .figma-dark .todo_td__user.completed {
@@ -219,13 +373,25 @@
   color: var(--custom-text-light);
 }
 
+.figma-dark .todo_td__item.completed svg path {
+  fill: var(--figma-color-bg-inverse);
+  opacity: 0.6;
+}
+
+.figma-light .todo_td__item.completed svg path {
+  fill: var(--figma-color-bg-inverse);
+  opacity: 0.6;
+}
+
 .todo_td__delete {
-  width: 40px;
+  width: 36px;
   border-radius: 8px;
+  opacity: 0.6;
 }
 
 .todo_td__delete:hover {
   background-color: var(--figma-color-bg-hover);
+  opacity: 0.8;
 }
 
 .todo_td__delete svg path {
@@ -235,23 +401,24 @@
 .todo_input {
   background-color: var(--figma-color-bg);
   outline: none;
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 8px;
   height: 36px;
   width: 100%;
-  border: none;
+  border: solid 1px white;
   text-align: left;
   padding: 0.5rem;
   appearance: none;
   transition: background-color 0.2s;
 }
-
 .figma-dark .todo_input {
   color: var(--custom-text-dark);
+  border: solid 1px var(--custom-nav-container-border-dark);
 }
 
 .figma-light .todo_input {
   color: var(--custom-text-light);
+  border: solid 1px var(--custom-nav-container-border-light);
 }
 
 .todo_input:hover,
