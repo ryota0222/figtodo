@@ -1,6 +1,6 @@
 // NOTE: figmaで "crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported" というエラーが出るので、uuid-randomを使う
 import uuid from "../../node_modules/uuid-random/index";
-import { TaskItem } from "../../ui-src/type";
+import { TaskItem, SubTaskItem } from "../../ui-src/type";
 
 const toTasks = (tasks: Partial<TaskItem>[]) => {
   return tasks.map((task) => ({
@@ -96,12 +96,142 @@ export const addSubTask = (fileId: string, id: string) => {
   }
 };
 
+export const deleteSubTask = (
+  fileId: string,
+  projectId: string,
+  subTaskIdx: number
+) => {
+  const todos = JSON.parse(
+    figma.root.getPluginData(`${fileId}:todos`) || "[]"
+  ) as TaskItem[];
+  const index = todos.findIndex((todo) => todo.id === projectId);
+  if (index >= 0) {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === projectId) {
+        return {
+          id: todo.id,
+          text: todo.text,
+          date: todo.date,
+          assigneeId: todo.assigneeId,
+          completedAt: todo.completedAt,
+          deletedAt: todo.deletedAt,
+          createdAt: todo.createdAt,
+          updatedAt: new Date().toISOString(),
+          subTasks: todo.subTasks.map((subTask: SubTaskItem, idx: number) => {
+            if (idx === subTaskIdx) {
+              return {
+                text: subTask.text,
+                completedAt: subTask.completedAt,
+                deletedAt: new Date().toISOString(),
+              };
+            }
+            return subTask;
+          }),
+        };
+      }
+      return todo;
+    });
+    figma.root.setPluginData(`${fileId}:todos`, JSON.stringify(newTodos));
+    figma.ui.postMessage({
+      type: "todos",
+      todos: _filterAndSortTodos(newTodos),
+    });
+  }
+};
+
+export const completeSubTask = (
+  fileId: string,
+  projectId: string,
+  subTaskIdx: number
+) => {
+  const todos = JSON.parse(
+    figma.root.getPluginData(`${fileId}:todos`) || "[]"
+  ) as TaskItem[];
+  const index = todos.findIndex((todo) => todo.id === projectId);
+  if (index >= 0) {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === projectId) {
+        return {
+          id: todo.id,
+          text: todo.text,
+          date: todo.date,
+          assigneeId: todo.assigneeId,
+          completedAt: todo.completedAt,
+          deletedAt: todo.deletedAt,
+          createdAt: todo.createdAt,
+          updatedAt: new Date().toISOString(),
+          subTasks: todo.subTasks.map((subTask: SubTaskItem, idx: number) => {
+            if (idx === subTaskIdx) {
+              return {
+                text: subTask.text,
+                completedAt: new Date().toISOString(),
+                deletedAt: subTask.deletedAt,
+              };
+            }
+            return subTask;
+          }),
+        };
+      }
+      return todo;
+    });
+    figma.root.setPluginData(`${fileId}:todos`, JSON.stringify(newTodos));
+    figma.ui.postMessage({
+      type: "todos",
+      todos: _filterAndSortTodos(newTodos),
+    });
+  }
+};
+
+export const unCompleteSubTask = (
+  fileId: string,
+  projectId: string,
+  subTaskIdx: number
+) => {
+  const todos = JSON.parse(
+    figma.root.getPluginData(`${fileId}:todos`) || "[]"
+  ) as TaskItem[];
+  const index = todos.findIndex((todo) => todo.id === projectId);
+  if (index >= 0) {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === projectId) {
+        return {
+          id: todo.id,
+          text: todo.text,
+          date: todo.date,
+          assigneeId: todo.assigneeId,
+          completedAt: todo.completedAt,
+          deletedAt: todo.deletedAt,
+          createdAt: todo.createdAt,
+          updatedAt: new Date().toISOString(),
+          subTasks: todo.subTasks.map((subTask: SubTaskItem, idx: number) => {
+            if (idx === subTaskIdx) {
+              return {
+                text: subTask.text,
+                completedAt: "",
+                deletedAt: subTask.deletedAt,
+              };
+            }
+            return subTask;
+          }),
+        };
+      }
+      return todo;
+    });
+    figma.root.setPluginData(`${fileId}:todos`, JSON.stringify(newTodos));
+    figma.ui.postMessage({
+      type: "todos",
+      todos: _filterAndSortTodos(newTodos),
+    });
+  }
+};
+
 export const updateTodo = (
   fileId: string,
   id: string,
   text: string,
   date: string,
-  assigneeId: string
+  assigneeId: string,
+  subTasks: string
 ) => {
   const todos = JSON.parse(
     figma.root.getPluginData(`${fileId}:todos`) || "[]"
@@ -119,7 +249,7 @@ export const updateTodo = (
           deletedAt: todo.deletedAt,
           createdAt: todo.createdAt,
           updatedAt: new Date().toISOString(),
-          subTasks: todo.subTasks,
+          subTasks: JSON.parse(subTasks),
         };
       }
       return todo;

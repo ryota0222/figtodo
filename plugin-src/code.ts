@@ -47,7 +47,8 @@ figma.ui.onmessage = async (params) => {
       params.id,
       params.text,
       params.date,
-      params.assigneeId
+      params.assigneeId,
+      params.subTasks
     );
   } else if (params.type === TodoEvents.DELETE_TODO) {
     taskController.deleteTodo(fileId, params.id);
@@ -57,6 +58,16 @@ figma.ui.onmessage = async (params) => {
     taskController.uncheckTodo(fileId, params.id);
   } else if (params.type === TodoEvents.ADD_SUB_TASK) {
     taskController.addSubTask(fileId, params.id);
+  } else if (params.type === TodoEvents.DELETE_SUB_TASK) {
+    taskController.deleteSubTask(fileId, params.projectId, params.subTaskIdx);
+  } else if (params.type === TodoEvents.COMPLETE_SUB_TASK) {
+    taskController.completeSubTask(fileId, params.projectId, params.subTaskIdx);
+  } else if (params.type === TodoEvents.UNCOMPLETE_SUB_TASK) {
+    taskController.unCompleteSubTask(
+      fileId,
+      params.projectId,
+      params.subTaskIdx
+    );
   }
   /**
    * user操作

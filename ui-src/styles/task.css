@@ -147,12 +147,18 @@
 
 .sub_task_td__text span {
   font-size: 14px;
+  line-height: 14px;
+  display: block;
+  text-align: left;
+  padding: 0.5rem;
+  height: 1.8rem;
+  box-sizing: border-box;
+}
+
+.sub_task_td__text span.completed {
   color: var(--figma-color-text);
   opacity: 0.6;
   text-decoration: line-through;
-  display: block;
-  text-align: left;
-  padding: 0 4px;
 }
 
 .sub_task_td__text input {
@@ -175,6 +181,7 @@
   align-items: center;
   border-radius: 8px;
   opacity: 0.6;
+  margin-right: 4px;
 }
 
 .sub_task_td__delete:hover {
@@ -225,18 +232,6 @@
 .figma-light .add_sub_task_icon svg path {
   fill: var(--figma-color-bg-inverse);
   opacity: 0.6;
-}
-
-.figma-dark .todo_tr:not(.last) {
-  border-bottom: solid 1px var(--custom-nav-container-border-dark);
-}
-
-.figma-light .todo_tr:not(.last) {
-  border-bottom: solid 1px var(--custom-nav-container-border-light);
-}
-
-.completed_todo_tr:not(.last) {
-  border-bottom: solid 1px var(--figma-color-bg-disabled);
 }
 
 .todo_td__item {
